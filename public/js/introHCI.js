@@ -17,6 +17,8 @@ function initializePage() {
 /*
  * Make an AJAX call to retrieve project details and add it in
  */
+
+
 function addProjectDetails(e) {
 	// Prevent following the link
 	e.preventDefault();
@@ -26,8 +28,39 @@ function addProjectDetails(e) {
 	// get rid of 'project' from the front of the id 'project3'
 	var idNumber = projectID.substr('project'.length);
 
+	var ProjURL = "/project/" + idNumber;
+
+	console.log(ProjURL);
+	$.get(ProjURL, addProject);
+
+
 	console.log("User clicked on project " + idNumber);
 }
+
+
+
+function addProject (result) {
+	
+
+	console.log(result['id']);
+	var id = result['id'];
+
+	var projectHTML = '<a href = "# class = "thumbnail">' + 
+	'<img src = "' + result['image'] + '" class = "detailsImage" >' + 
+	'<p>' + result['title'] +
+	 '</p>' + '<p><small>' + result['date'] + result['summary'] + '</small></p></a>';
+	
+
+	$("#project"+id+" .details").html(projectHTML);
+}
+
+
+
+
+
+
+
+
 
 /*
  * Make an AJAX call to retrieve a color palette for the site
@@ -35,4 +68,5 @@ function addProjectDetails(e) {
  */
 function randomizeColors(e) {
 	console.log("User clicked on color button");
+	var ColorURL = "palette" ;
 }
